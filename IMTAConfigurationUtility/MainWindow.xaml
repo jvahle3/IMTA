@@ -1,0 +1,63 @@
+﻿<Window x:Class="IMTAConfigurationUtility.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="IMTA Configuration Utility" Height="634.8" Width="998">
+    <Grid DataContext="{Binding ElementName=Selector, Path=SelectedItem}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="167*"/>
+        </Grid.RowDefinitions>
+        <ComboBox Name="Selector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="386" Margin="10,10,0,0" Height="22" DisplayMemberPath="ObjectName" SelectionChanged="Selector_SelectionChanged" ToolTip="List of all Objects"/>
+        <Button x:Name="AddButton" Content="Add New" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Height="20" Click="AddButton_Click" ToolTip="Adds a new Object"/>
+        <Button x:Name="RemoveButton" Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="85,12,0,0" VerticalAlignment="Top" Width="75" Height="20" Grid.RowSpan="2" Click="RemoveButton_Click" ToolTip="Removes the currently selected Object"/>
+        <Button x:Name="SaveButton" Content="Save To Object" Grid.Column="1" HorizontalAlignment="Left" Margin="160,12,0,0" VerticalAlignment="Top" Width="93" Height="20" Grid.RowSpan="2" Click="SaveButton_Click" ToolTip="Save the current session"/>
+        <Button x:Name="LoadButton" Content="Load" Grid.Column="1" HorizontalAlignment="Left" Margin="253,12,0,0" VerticalAlignment="Top" Width="75" Click="LoadButton_Click" ToolTip="Load a session"/>
+        <Label Content="Linked Image" Grid.Row="1" Grid.Column="0" ToolTip="Image/Sprite of entity"/>
+        <TextBlock x:Name="ImageFileName" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Text="{Binding Path=ImageFileName}"/>
+        <Button x:Name="FileButtonImage" Content="Select file" Grid.Row="1" Grid.Column="1" Margin="334,0,0,0" Click="FileButtonImage_Click" ToolTip="Image/Sprite of entity"/>
+        <Label Content="Linked Animation Page" Grid.Row="2" Grid.Column="0" ToolTip="What animation the enity should play when attacking, this should be a .xaml file"/>
+        <TextBlock x:Name="AnimationFileName" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Text="{Binding Path=XAMLName}"/>
+        <Button x:Name="FileButtonAnimation" Content="Select file" Grid.Row="2" Grid.Column="1" Margin="334,0,0,0" Click="FileButtonAnimation_Click" ToolTip="What animation the enity should play when attacking, this should be a .xaml file"/>
+        <Label Content="Entity Name" Grid.Row="3" Grid.Column="0"/>
+        <TextBox Name="EntityName" Grid.Row="3" Grid.Column="1" Text="{Binding Path=ObjectName}" ToolTip="Name"/>
+        <Label Content="Entity HP" Grid.Row="4" Grid.Column="0"/>
+        <TextBox x:Name="EntityHP" Grid.Row="4" Grid.Column="1" Text="{Binding Path=UserHp}" ToolTip="Health Points"/>
+        <Label Content="Entity Def" Grid.Row="5" Grid.Column="0" />
+        <TextBox x:Name="EntityDef" Grid.Row="5" Grid.Column="1" Text="{Binding Path=UserDef}" ToolTip="Defence"/>
+        <Label Content="Entity Attack" Grid.Row="6" Grid.Column="0"/>
+        <TextBox x:Name="EntityAttack" Grid.Row="6" Grid.Column="1" Text="{Binding Path=UserAttack}" ToolTip="Attack"/>
+        <Grid Grid.Row="7" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="235*"/>
+            </Grid.RowDefinitions>
+
+            <ComboBox Name="textComboBox" Grid.Row="0" ItemsSource="{Binding Path=Ints}" Margin="0,0,336,0" SelectionChanged="TextComboBox_SelectionChanged" ToolTip="List of all text stored"/>
+            <Button x:Name="AddText" Content="Add Text" HorizontalAlignment="Right" Grid.Row="0" Click="AddText_Click" ToolTip="Adds a new text block"/>
+            <Button x:Name="SaveText" Content="Save" Grid.Row="0" Click="SaveText_Click" Margin="397,0,55,0" Height="23" VerticalAlignment="Bottom" ToolTip="Saves the current text"/>
+            <Button x:Name="RemoveText" Content="Remove Text" Grid.Row="0" Click="RemoveText_Click" Margin="298,0,103,0" ToolTip="Remove the currently selected text and decreaes the counter"/>
+            <TextBox x:Name="TextB" Grid.Row="1" ToolTip="Type text here! The entity will say these things when spoken too"/>
+        </Grid>
+        <Grid x:Name="DieGrid" Grid.Row="7" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="39*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="DeathTextSave" Grid.Row="0" Content="Save" Click="DeathTextSave_Click" ToolTip="Saves the current text"/>
+            <TextBox x:Name="DeathTextBox" Grid.Row="1" ToolTip="What an entity should say if/when it dies"/>
+        </Grid>
+    </Grid>
+</Window>

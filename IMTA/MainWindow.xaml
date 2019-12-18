@@ -1,0 +1,28 @@
+﻿<Window x:Class="IMTA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMTA"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}" Background="Black"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <StackPanel Orientation="Vertical" Name="mainPanel" Height="744" Width="1382">
+        <StackPanel x:Name="EnemyBox" Height="258" Width="1382">
+            <Frame x:Name="UserPanel" NavigationUIVisibility="Hidden" Source="CreaturePage.xaml" Height="258" Width="1382"/>
+        </StackPanel>
+        <StackPanel x:Name="InfoBox" Height="258" Width="1382">
+            <Frame x:Name="InfoPanel" NavigationUIVisibility="Hidden" Source="TextPage.xaml" Height="258" Width="1382" />
+        </StackPanel>
+        <StackPanel x:Name="ButtonBox" Orientation="Horizontal" Height="198" Width="1382">
+            <Separator Margin="0" Width="173.125" />
+            <Button x:Name="AttackButton" Style="{StaticResource IMTAButtons}" Content="Attack" Foreground="Red"/>
+            <Separator Margin="0" Width="301.25" />
+            <Button x:Name="Talk" Style="{StaticResource IMTAButtons}" Content="Talk" Foreground="Blue"/>
+            <Separator Margin="0" Width="301.25" />
+            <Button x:Name="Spare" Style="{StaticResource IMTAButtons}" Content="Spare" Foreground="Green"/>
+            <Separator Margin="0" Width="131" />
+        </StackPanel>
+
+    </StackPanel>
+</Window>
