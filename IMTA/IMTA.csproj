@@ -80,7 +80,6 @@
     </ApplicationDefinition>
     <Compile Include="Cmds\CharacterIsAttacked.cs" />
     <Compile Include="Cmds\CommandBase.cs" />
-    <Compile Include="Flag.cs" />
     <Compile Include="UserObjectContainer.cs" />
     <Compile Include="UserObject.cs" />
     <Content Include="CreaturePage.xaml">

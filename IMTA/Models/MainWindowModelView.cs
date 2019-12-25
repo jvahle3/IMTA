@@ -15,8 +15,7 @@ namespace IMTA.Models
 
     public class MainWindowModelView
     {
-        private XamlReader xamlReader;
-        public MainWindowModelView()
+         public MainWindowModelView()
         {
             
         }

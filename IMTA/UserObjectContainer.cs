@@ -14,20 +14,20 @@ namespace IMTA
     /// </summary>
     public static class UserObjectContainer
     {
-        public static readonly UserObject UOBJ;
+        public static readonly IList<UserObject> UOBJ;
         static UserObjectContainer()
         {
             try
             {
-                using (Stream stream = File.OpenRead("UserObject.dat"))
+                using (Stream stream = File.OpenRead(@"C:\Users\jvahle3\source\repos\IMTA\IMTA\bin\Debug\UserObject.dat"))
                 {
                     BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    UOBJ = (UserObject) binaryFormatter.Deserialize(stream);
+                    UOBJ = (List<UserObject>) binaryFormatter.Deserialize(stream);
                 }
             }
             catch (FileNotFoundException)
             {
-                UOBJ = new UserObject { UserHp = 100, UserAttack = 10, UserDef = 10 };
+                UOBJ = new List<UserObject> { new UserObject { UserHp = 100, UserAttack = 10, UserDef = 10 } };
             }
         }
     }

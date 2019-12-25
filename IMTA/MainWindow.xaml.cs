@@ -30,11 +30,12 @@ namespace IMTA
                 InitalizePanels();
             } catch (Exception e)
             {
-                string error = e.Message;
+                string error = e.Message + '\n' + e.StackTrace + '\n' + e.InnerException ;
                 string exception = "Exception";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage image = MessageBoxImage.Error;
                 MessageBox.Show(error, exception, button, image);
+                Environment.Exit(1);
             }
         }
         

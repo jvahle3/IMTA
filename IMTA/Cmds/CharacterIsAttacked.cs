@@ -25,7 +25,6 @@ namespace IMTA.Cmds
         {
             //this will remove the hp from the creture attacked
             Creature cr = (Creature)parameter;
-            cr.HP = cr.HP - UserObjectContainer.UOBJ.UserAttack;
         }
     }
 }
