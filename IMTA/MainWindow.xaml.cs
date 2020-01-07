@@ -52,12 +52,6 @@ namespace IMTA
 
             ButtonBox.Height = this.Height / 3;
             ButtonBox.Width = this.Width;
-
-            UserPanel.Height = this.Height / 3;
-            UserPanel.Width = this.Width;
-
-            InfoPanel.Height = this.Height / 3;
-            InfoPanel.Width = this.Width;
         }
 
     }

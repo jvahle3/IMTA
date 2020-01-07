@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Configuration;
+
 namespace IMTA
 {
     /// <summary>
@@ -17,12 +19,14 @@ namespace IMTA
         public static readonly IList<UserObject> UOBJ;
         static UserObjectContainer()
         {
+            AppSettingsReader ASR = new AppSettingsReader();
+            string _location = (string)ASR.GetValue("UserObjectLocation", typeof(string));
             try
             {
-                using (Stream stream = File.OpenRead(@"C:\Users\jvahle3\source\repos\IMTA\IMTA\bin\Debug\UserObject.dat"))
+                using (Stream stream = File.OpenRead(_location))
                 {
                     BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    UOBJ = (List<UserObject>) binaryFormatter.Deserialize(stream);
+                    UOBJ = (List<UserObject>)binaryFormatter.Deserialize(stream);
                 }
             }
             catch (FileNotFoundException)

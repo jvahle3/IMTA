@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMTA"
         mc:Ignorable="d"
-        Title="MainWindow" Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}" Background="Black"
+        Title="IMTA" Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}" Background="Black"
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <StackPanel Orientation="Vertical" Name="mainPanel" Height="744" Width="1382">
-        <StackPanel x:Name="EnemyBox" Height="258" Width="1382">
-            <Frame x:Name="UserPanel" NavigationUIVisibility="Hidden" Source="CreaturePage.xaml" Height="258" Width="1382"/>
+        <StackPanel x:Name="EnemyBox" Height="258" Width="1382" Orientation="Horizontal">
+            
         </StackPanel>
         <StackPanel x:Name="InfoBox" Height="258" Width="1382">
-            <Frame x:Name="InfoPanel" NavigationUIVisibility="Hidden" Source="TextPage.xaml" Height="258" Width="1382" />
+            
         </StackPanel>
         <StackPanel x:Name="ButtonBox" Orientation="Horizontal" Height="198" Width="1382">
             <Separator Margin="0" Width="173.125" />
