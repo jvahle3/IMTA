@@ -28,6 +28,7 @@ namespace IMTA
             {
                 InitializeComponent();
                 InitalizePanels();
+                LoadImages();
             } catch (Exception e)
             {
                 string error = e.Message + '\n' + e.StackTrace + '\n' + e.InnerException ;
@@ -54,5 +55,21 @@ namespace IMTA
             ButtonBox.Width = this.Width;
         }
 
+        private void LoadImages()
+        {
+
+            int _numberOfObjects = UserObjectContainer.UOBJ.Count;
+            foreach (UserObject us in UserObjectContainer.UOBJ)
+            {
+                if (us.ImageFileName.Substring(us.ImageFileName.LastIndexOf(@"\")).Contains(".gif")) return;
+                Image image = new Image();
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(us.ImageFileName);
+                image.Source = bitmapImage;
+                bitmapImage.EndInit();
+                EnemyBox.Children.Add(image);
+            }
+        }
     }
 }
