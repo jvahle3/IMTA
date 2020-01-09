@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Markup;
 using System.IO;
 using System.Xml;
+using IMTA.Cmds;
 namespace IMTA
 {
     /// <summary>
@@ -22,6 +23,8 @@ namespace IMTA
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ICommand _AttackButtonClicked = null;
+        public ICommand AttackButtonClicked => _AttackButtonClicked ?? (_AttackButtonClicked = new AttackButtonClicked());
         public MainWindow()
         {
             try

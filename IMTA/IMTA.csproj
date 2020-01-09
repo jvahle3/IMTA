@@ -78,6 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cmds\AttackButtonClicked.cs" />
     <Compile Include="Cmds\CharacterIsAttacked.cs" />
     <Compile Include="Cmds\CommandBase.cs" />
     <Compile Include="UserObjectContainer.cs" />

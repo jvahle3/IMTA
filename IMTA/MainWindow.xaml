@@ -12,11 +12,11 @@
             
         </StackPanel>
         <StackPanel x:Name="InfoBox" Height="258" Width="1382">
-            
+            <TextBlock x:Name="NameHPTextBox" Background="Red" Foreground="Blue"/>
         </StackPanel>
         <StackPanel x:Name="ButtonBox" Orientation="Horizontal" Height="198" Width="1382">
             <Separator Margin="0" Width="173.125" />
-            <Button x:Name="AttackButton" Style="{StaticResource IMTAButtons}" Content="Attack" Foreground="Red"/>
+            <Button x:Name="AttackButton" Style="{StaticResource IMTAButtons}" Content="Attack" Foreground="Red" Command="{Binding Path=AttackButtonClicked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Separator Margin="0" Width="301.25" />
             <Button x:Name="Talk" Style="{StaticResource IMTAButtons}" Content="Talk" Foreground="Blue"/>
             <Separator Margin="0" Width="301.25" />
