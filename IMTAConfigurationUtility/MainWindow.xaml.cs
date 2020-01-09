@@ -40,7 +40,12 @@ namespace IMTAConfigurationUtility
                     TextList = userObject.TextList,
                     XAML = userObject.XAML,
                     XAMLName = userObject.XAMLName,
-                    DeathText = userObject.DeathText
+                    DeathText = userObject.DeathText,
+                    SparedText = userObject.SparedText,
+                    NoSpare = userObject.NoSpare,
+                    HpSpare = userObject.HpSpare,
+                    TextSpare = userObject.TextSpare,
+                    SpareHP = userObject.SpareHP
                 });
             }
             return userObjects;
@@ -75,7 +80,7 @@ namespace IMTAConfigurationUtility
             };
             Nullable<bool> result = openFileDialog.ShowDialog();
             if (result == false) return;
-            using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open)) 
+            using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open))
             {
                 List<UserObject> obj = (List<UserObject>)bin.Deserialize(fs);
                 _userObjects = new ObservableCollection<UserObject>(obj);
@@ -173,14 +178,53 @@ namespace IMTAConfigurationUtility
         {
             if (Selector.SelectedItem == null) return;
             UserObject us = (UserObject)Selector.SelectedItem;
+            if (DeathTextBox.Text == null) return;
             us.DeathText = DeathTextBox.Text;
+            if (SparedTextBox.Text == null) return;
+            us.SparedText = SparedTextBox.Text;
         }
 
         private void Selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Selector.SelectedItem == null) return;
-            UserObject us = (UserObject) Selector.SelectedItem;
+            UserObject us = (UserObject)Selector.SelectedItem;
             DeathTextBox.Text = us.DeathText;
+
+        }
+
+        private void NoSpare_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Selector.SelectedItem == null)
+            {
+                NoSpare.IsChecked = false;
+                return;
+            } 
+            TextSpare.IsChecked = false;
+            HpSpare.IsChecked = false;
+        }
+
+        private void TextORHpSpare_Checked(object sender, RoutedEventArgs e)
+        {
+            {
+                CheckBox checkBox = (CheckBox)sender;
+                if (Selector.SelectedItem == null)
+                {
+                    checkBox.IsChecked = false;
+                    return;
+                }
+                NoSpare.IsChecked = false;
+
+            }
+        }
+
+        private void SpareSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (Selector.SelectedItem == null) return;
+            UserObject us = (UserObject)Selector.SelectedItem;
+            us.HpSpare = (bool) HpSpare.IsChecked;
+            us.NoSpare = (bool)NoSpare.IsChecked;
+            us.TextSpare = (bool)TextSpare.IsChecked;
         }
     }
+
 }
