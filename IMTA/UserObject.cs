@@ -22,10 +22,15 @@ namespace IMTA
         private int _userAttack;
         private int _userHp;
         private int _userDef;
+        private int _SpareHP;
         private string _deathText;
+        private string _sparedText;
         private string _xaml = null;
         private string _xamlName;
         private string _imageFileName;
+        private bool _hpSpare;
+        private bool _textSpare;
+        private bool _noSpare;
         private ObservableCollection<string> _textList = new ObservableCollection<string>();
         private ObservableCollection<int> _ints = new ObservableCollection<int>();
         public string ObjectName
@@ -43,6 +48,30 @@ namespace IMTA
             set
             {
                 _deathText = value;
+                OnPropertyChanged();
+            }
+        }
+        public string SparedText
+        {
+            get
+            {
+                return _sparedText;
+            }
+            set
+            {
+                _sparedText = value;
+                OnPropertyChanged();
+            }
+        }
+        public int SpareHP
+        {
+            get
+            {
+                return _SpareHP;
+            }
+            set
+            {
+                _SpareHP = value;
                 OnPropertyChanged();
             }
         }
@@ -106,6 +135,42 @@ namespace IMTA
                 OnPropertyChanged();
             }
         }
+        public bool HpSpare
+        {
+            get
+            {
+                return _hpSpare;
+            }
+            set
+            {
+                _hpSpare = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool TextSpare
+        {
+            get
+            {
+                return _textSpare;
+            }
+            set
+            {
+                _textSpare = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool NoSpare
+        {
+            get
+            {
+                return _noSpare;
+            }
+            set
+            {
+                _noSpare = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<string> TextList
         {
             get
@@ -130,6 +195,7 @@ namespace IMTA
                 OnPropertyChanged();
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propteryName = "")

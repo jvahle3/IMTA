@@ -42,22 +42,38 @@
         <Grid Grid.Row="7" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="23*"/>
-                <RowDefinition Height="235*"/>
+                <RowDefinition Height="114*"/>
+                <RowDefinition Height="121*" />
             </Grid.RowDefinitions>
 
             <ComboBox Name="textComboBox" Grid.Row="0" ItemsSource="{Binding Path=Ints}" Margin="0,0,336,0" SelectionChanged="TextComboBox_SelectionChanged" ToolTip="List of all text stored"/>
-            <Button x:Name="AddText" Content="Add Text" HorizontalAlignment="Right" Grid.Row="0" Click="AddText_Click" ToolTip="Adds a new text block"/>
+            <Button x:Name="AddText" Content="Add Text" HorizontalAlignment="Right" Grid.Row="0" Click="AddText_Click" ToolTip="Adds a new text block" Width="50"/>
             <Button x:Name="SaveText" Content="Save" Grid.Row="0" Click="SaveText_Click" Margin="397,0,55,0" Height="23" VerticalAlignment="Bottom" ToolTip="Saves the current text"/>
             <Button x:Name="RemoveText" Content="Remove Text" Grid.Row="0" Click="RemoveText_Click" Margin="298,0,103,0" ToolTip="Remove the currently selected text and decreaes the counter"/>
             <TextBox x:Name="TextB" Grid.Row="1" ToolTip="Type text here! The entity will say these things when spoken too"/>
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="67*"/>
+                    <RowDefinition Height="54*"/>
+                    <RowDefinition Height="0*"/>
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="HpSpare" Content="Entity can be spared when hp is blow" HorizontalAlignment="Left" VerticalAlignment="Top" Height="19" Width="217" Checked="TextORHpSpare_Checked"/>
+                <TextBox  x:Name="SpareHP" HorizontalAlignment="Left" Height="23" Margin="222,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Path=SpareHP}" />
+                <CheckBox x:Name="TextSpare" Content="Entity can be spared when end of speech text is reached" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top" Width="322" Checked="TextORHpSpare_Checked"/>
+                <CheckBox x:Name="NoSpare" Content="Entity can not be spared" HorizontalAlignment="Left" Margin="0,44,0,0" VerticalAlignment="Top" Height="23" Width="342" Checked="NoSpare_Checked"/>
+                <Button x:Name="SpareSave" Content="Save" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="106" Height="54" Click="SpareSave_Click"/>
+
+            </Grid>
         </Grid>
         <Grid x:Name="DieGrid" Grid.Row="7" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="39*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="auto" MinHeight="129"/>
             </Grid.RowDefinitions>
             <Button x:Name="DeathTextSave" Grid.Row="0" Content="Save" Click="DeathTextSave_Click" ToolTip="Saves the current text"/>
             <TextBox x:Name="DeathTextBox" Grid.Row="1" ToolTip="What an entity should say if/when it dies"/>
+            <TextBox x:Name="SparedTextBox" Grid.Row="2" ToolTip="What an entity should say if/when it is spared by the player"/>
         </Grid>
     </Grid>
 </Window>
