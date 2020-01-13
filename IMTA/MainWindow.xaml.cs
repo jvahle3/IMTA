@@ -16,6 +16,7 @@ using System.Windows.Markup;
 using System.IO;
 using System.Xml;
 using IMTA.Cmds;
+using IMTA.Models;
 namespace IMTA
 {
     /// <summary>
@@ -25,12 +26,17 @@ namespace IMTA
     {
         private ICommand _AttackButtonClicked = null;
         public ICommand AttackButtonClicked => _AttackButtonClicked ?? (_AttackButtonClicked = new AttackButtonClicked());
+        private ICommand _SpareButtonClicked = null;
+        public ICommand SpareButtonClicked => _SpareButtonClicked ?? (_SpareButtonClicked = new SpareButtonClicked());
+        private ICommand _TalkButtonClicked = null;
+        public ICommand TalkButtonClicked => _TalkButtonClicked ?? (_TalkButtonClicked = new TalkButtonClicked());
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
                 InitalizePanels();
+                MainWindowModelView mainWindowModelView = new MainWindowModelView(this);
                 LoadImages();
             } catch (Exception e)
             {

@@ -81,6 +81,8 @@
     <Compile Include="Cmds\AttackButtonClicked.cs" />
     <Compile Include="Cmds\CharacterIsAttacked.cs" />
     <Compile Include="Cmds\CommandBase.cs" />
+    <Compile Include="Cmds\SpareButtonClicked.cs" />
+    <Compile Include="Cmds\TalkButtonClicked.cs" />
     <Compile Include="UserObjectContainer.cs" />
     <Compile Include="UserObject.cs" />
     <Page Include="MainWindow.xaml">

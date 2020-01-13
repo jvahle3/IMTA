@@ -9,18 +9,19 @@
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <StackPanel Orientation="Vertical" Name="mainPanel" Height="744" Width="1382">
         <StackPanel x:Name="EnemyBox" Height="258" Width="1382" Orientation="Horizontal">
-            
+
         </StackPanel>
-        <StackPanel x:Name="InfoBox" Height="258" Width="1382">
-            <TextBlock x:Name="NameHPTextBox" Background="Red" Foreground="Blue"/>
-        </StackPanel>
+        <Canvas x:Name="InfoBox" Height="258" Width="1382">
+            <Border BorderBrush="Gray" BorderThickness="5" Width="1364" Height="238" Canvas.Left="3" Canvas.Top="10"/>
+            <WrapPanel x:Name="EntitySelectionMenu" Height="204" Margin="25,25,25,25" Width="1326" Visibility="Hidden"/>
+        </Canvas>
         <StackPanel x:Name="ButtonBox" Orientation="Horizontal" Height="198" Width="1382">
             <Separator Margin="0" Width="173.125" />
             <Button x:Name="AttackButton" Style="{StaticResource IMTAButtons}" Content="Attack" Foreground="Red" Command="{Binding Path=AttackButtonClicked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Separator Margin="0" Width="301.25" />
-            <Button x:Name="Talk" Style="{StaticResource IMTAButtons}" Content="Talk" Foreground="Blue"/>
+            <Button x:Name="Talk" Style="{StaticResource IMTAButtons}" Content="Talk" Foreground="Blue" Command="{Binding Path=TalkButtonClicked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Separator Margin="0" Width="301.25" />
-            <Button x:Name="Spare" Style="{StaticResource IMTAButtons}" Content="Spare" Foreground="Green"/>
+            <Button x:Name="Spare" Style="{StaticResource IMTAButtons}" Content="Spare" Foreground="Green" Command="{Binding Path=SpareButtonClicked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Separator Margin="0" Width="131" />
         </StackPanel>
 
