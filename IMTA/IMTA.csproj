@@ -81,6 +81,7 @@
     <Compile Include="Cmds\AttackButtonClicked.cs" />
     <Compile Include="Cmds\CharacterIsAttacked.cs" />
     <Compile Include="Cmds\CommandBase.cs" />
+    <Compile Include="Cmds\EntitySelected.cs" />
     <Compile Include="Cmds\SpareButtonClicked.cs" />
     <Compile Include="Cmds\TalkButtonClicked.cs" />
     <Compile Include="UserObjectContainer.cs" />

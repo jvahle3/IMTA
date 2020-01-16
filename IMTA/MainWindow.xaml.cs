@@ -30,6 +30,9 @@ namespace IMTA
         public ICommand SpareButtonClicked => _SpareButtonClicked ?? (_SpareButtonClicked = new SpareButtonClicked());
         private ICommand _TalkButtonClicked = null;
         public ICommand TalkButtonClicked => _TalkButtonClicked ?? (_TalkButtonClicked = new TalkButtonClicked());
+        private ICommand _EntitySelected = null;
+        public ICommand EntitySelected => _EntitySelected ?? (_EntitySelected = new EntitySelected());
+        public MediaElement SoundPlayer = new MediaElement { Visibility = Visibility.Hidden, LoadedBehavior = MediaState.Manual };
         public MainWindow()
         {
             try
@@ -38,6 +41,8 @@ namespace IMTA
                 InitalizePanels();
                 MainWindowModelView mainWindowModelView = new MainWindowModelView(this);
                 LoadImages();
+                mainPanel.Children.Add(SoundPlayer);
+                
             } catch (Exception e)
             {
                 string error = e.Message + '\n' + e.StackTrace + '\n' + e.InnerException ;
