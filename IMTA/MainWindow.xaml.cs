@@ -17,6 +17,7 @@ using System.IO;
 using System.Xml;
 using IMTA.Cmds;
 using IMTA.Models;
+using System.Windows.Media.Animation;
 namespace IMTA
 {
     /// <summary>
@@ -81,8 +82,27 @@ namespace IMTA
                 bitmapImage.BeginInit();
                 bitmapImage.UriSource = new Uri(us.ImageFileName);
                 image.Source = bitmapImage;
+                image.Name = us.ObjectName;
                 bitmapImage.EndInit();
                 EnemyBox.Children.Add(image);
+            }
+        }
+        public void HurtAnimation(string ObjectName)
+        {
+            TranslateTransform translateTransform = new TranslateTransform();
+            DoubleAnimation translateAnimation = new DoubleAnimation();
+            translateAnimation.Completed += (o, s) => { };
+            translateAnimation.From = 0;
+            translateAnimation.To = 50;
+            translateAnimation.Duration = new Duration(new TimeSpan(999999));
+            translateAnimation.AutoReverse = true;
+            foreach (Image image in EnemyBox.Children)
+            {
+                if (image.Name.Equals(ObjectName))
+                {
+                    image.RenderTransform = translateTransform;
+                    translateTransform.BeginAnimation(TranslateTransform.XProperty, translateAnimation);
+                }
             }
         }
     }

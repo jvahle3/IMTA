@@ -39,6 +39,7 @@ namespace IMTA.Cmds
                 ResetMenus(mainW);
                 mainW.SoundPlayer.Source = new Uri((string)MainWindowModelView.AppReader.GetValue("HurtSound", typeof(string)));
                 mainW.SoundPlayer.Play();
+                mainW.HurtAnimation(us.ObjectName);
                 if (us.UserHp <= 0) return;
             } else if (TalkButtonClicked.IsTalkMenu)
             {
