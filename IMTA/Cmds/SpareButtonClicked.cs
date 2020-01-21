@@ -11,7 +11,7 @@ namespace IMTA.Cmds
         public static bool IsSpareMenu = false;
         public override bool CanExecute(object parameter)
         {
-            return !IsSpareMenu;
+            return !IsSpareMenu && !Models.MainWindowModelView.IsDeathText;
         }
 
         public override void Execute(object parameter)

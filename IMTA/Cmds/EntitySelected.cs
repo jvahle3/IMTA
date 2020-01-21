@@ -40,7 +40,11 @@ namespace IMTA.Cmds
                 mainW.SoundPlayer.Source = new Uri((string)MainWindowModelView.AppReader.GetValue("HurtSound", typeof(string)));
                 mainW.SoundPlayer.Play();
                 mainW.HurtAnimation(us.ObjectName);
-                if (us.UserHp <= 0) return;
+                if (us.UserHp <= 0)
+                {
+                    mainW.OnEntityDeath(ObjectName);
+                    return;
+                }
             } else if (TalkButtonClicked.IsTalkMenu)
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);

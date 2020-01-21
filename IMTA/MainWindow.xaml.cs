@@ -54,7 +54,30 @@ namespace IMTA
                 Environment.Exit(1);
             }
         }
-        
+
+        internal void OnEntityDeath(string EntityName)
+        {
+            UserObject us = MainWindowModelView.FineObjectByName(EntityName);
+            InfoText.Text = us.DeathText;
+            InfoText.Visibility = Visibility.Visible;
+            MainWindowModelView.IsDeathText = true;
+            DoubleAnimation doubleAnimation = new DoubleAnimation();
+            doubleAnimation.Completed += (o, s) => { };
+            doubleAnimation.From = 1;
+            doubleAnimation.To = 0;
+            doubleAnimation.Duration = new Duration(new TimeSpan(0,0,0,5));
+            foreach (Image i in EnemyBox.Children)
+            {
+                if (i.Name.Equals(EntityName))
+                {
+                    i.BeginAnimation(Image.OpacityProperty,doubleAnimation);
+                    break;
+                }
+                else continue;
+            }
+            
+        }
+
         private void InitalizePanels()
         {
             mainPanel.Height = this.Height;

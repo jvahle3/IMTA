@@ -26,10 +26,11 @@ namespace IMTA.Models
         public static AppSettingsReader AppReader = new AppSettingsReader();
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
         public static int UserHealth { get; set; } = (int)AppReader.GetValue("UserHealth", typeof(int));
+        public static bool IsDeathText { get; set; }
 
         public MainWindowModelView(MainWindow mainWindow)
         {
-             mainW = mainWindow;
+            mainW = mainWindow;
             SetUpEntityButtons();
         }
         private void SetUpEntityButtons()
@@ -37,9 +38,11 @@ namespace IMTA.Models
             
             foreach (UserObject us in UserObjectContainer.UOBJ)
             {
-                Button button = new Button();
-                button.Background = Brushes.Black;
-                button.Foreground = Brushes.White;
+                Button button = new Button
+                {
+                    Background = Brushes.Black,
+                    Foreground = Brushes.White
+                };
                 string s = "\n" +
                     us.ObjectName + " \t\t\t\t" + "HP:" + us.UserHp +  //Should look somthing like this: name              HP;
                     "\n";
