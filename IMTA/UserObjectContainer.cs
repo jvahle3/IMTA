@@ -27,6 +27,13 @@ namespace IMTA
                 {
                     BinaryFormatter binaryFormatter = new BinaryFormatter();
                     UOBJ = (List<UserObject>)binaryFormatter.Deserialize(stream);
+                    foreach(UserObject us in UOBJ)
+                    {
+                        foreach(string s in us.TextList )
+                        {
+                            us.RuntimeTextList.Add(s);
+                        }
+                    }
                 }
             }
             catch (FileNotFoundException)

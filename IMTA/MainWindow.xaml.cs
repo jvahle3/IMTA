@@ -75,7 +75,6 @@ namespace IMTA
                 }
                 else continue;
             }
-            
         }
 
         private void InitalizePanels()
@@ -127,6 +126,18 @@ namespace IMTA
                     translateTransform.BeginAnimation(TranslateTransform.XProperty, translateAnimation);
                 }
             }
+        }
+        private void InfoBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (MainWindowModelView.IsDeathText == true || MainWindowModelView.IsTalkText == true || MainWindowModelView.IsSpareText == true)
+            {
+                MainWindowModelView.IsDeathText = false;
+                MainWindowModelView.IsTalkText = false;
+                MainWindowModelView.IsSpareText = false;
+                InfoText.Text = string.Empty;
+                InfoText.Visibility = Visibility.Hidden;
+            }
+            else return;
         }
     }
 }

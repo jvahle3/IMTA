@@ -12,7 +12,7 @@ namespace IMTA.Cmds
         public static bool IsTalkMenu = false;
         public override bool CanExecute(object parameter)
         {
-            return !IsTalkMenu && !Models.MainWindowModelView.IsDeathText; //only work if button has not been pressed already
+            return !IsTalkMenu && !Models.MainWindowModelView.IsDeathText && !Models.MainWindowModelView.IsTalkText && !Models.MainWindowModelView.IsSpareText; //only work if button has not been pressed already
         }
 
         public override void Execute(object parameter)

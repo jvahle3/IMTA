@@ -49,6 +49,11 @@ namespace IMTA.Cmds
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
                 ResetMenus(mainW);
+                mainW.InfoText.Visibility = Visibility.Visible;
+                if (us.RuntimeInt >= us.RuntimeTextList.Count) us.RuntimeInt = 0;
+                MainWindowModelView.IsTalkText = true;
+                mainW.InfoText.Text = us.ObjectName + " says: " + us.RuntimeTextList.ElementAt(us.RuntimeInt);
+
             } else if (SpareButtonClicked.IsSpareMenu)
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);

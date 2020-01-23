@@ -27,7 +27,8 @@ namespace IMTA.Models
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
         public static int UserHealth { get; set; } = (int)AppReader.GetValue("UserHealth", typeof(int));
         public static bool IsDeathText { get; set; }
-
+        public static bool IsTalkText { get; set; }
+        public static bool IsSpareText { get; set; }
         public MainWindowModelView(MainWindow mainWindow)
         {
             mainW = mainWindow;

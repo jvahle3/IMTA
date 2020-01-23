@@ -7,15 +7,16 @@
         xmlns:local="clr-namespace:IMTA"
         mc:Ignorable="d"
         Title="IMTA" Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}" Background="Black"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        KeyDown="InfoBox_KeyDown">
     <StackPanel Orientation="Vertical" Name="mainPanel" Height="744" Width="1382">
         <StackPanel x:Name="EnemyBox" Height="258" Width="1382" Orientation="Horizontal">
 
         </StackPanel>
-        <Canvas x:Name="InfoBox" Height="258" Width="1382">
+        <Canvas x:Name="InfoBox" Height="258" Width="1382" Keyboard.KeyDown="InfoBox_KeyDown">
             <Border BorderBrush="Gray" BorderThickness="5" Width="1364" Height="238" Canvas.Left="3" Canvas.Top="10"/>
             <TextBlock x:Name="InfoText" Background="Black" Foreground="White" Height="204" Width="1326" Canvas.Left="25" Canvas.Top="25" Visibility="Hidden" FontSize="36"/>
-            <WrapPanel x:Name="EntitySelectionMenu" Height="204" Margin="25,25,25,25" Width="1326" Visibility="Hidden"/>
+            <WrapPanel x:Name="EntitySelectionMenu" Height="204" Margin="25,25,25,25" Width="1326" Visibility="Hidden" />
         </Canvas>
         <StackPanel x:Name="ButtonBox" Orientation="Horizontal" Height="198" Width="1382">
             <Separator Margin="0" Width="173.125" />

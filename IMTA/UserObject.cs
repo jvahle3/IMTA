@@ -102,6 +102,7 @@ namespace IMTA
             }
             get => _userDef;
         }
+        public int RuntimeInt { get; set; } //For use by runtime not config tool
         public string XAML
         {
             set
@@ -195,8 +196,9 @@ namespace IMTA
                 OnPropertyChanged();
             }
         }
-
+        public List<string> RuntimeTextList { get; set; } = new List<string>();
         public event PropertyChangedEventHandler PropertyChanged;
+
 
         protected void OnPropertyChanged([CallerMemberName] string propteryName = "")
         {
