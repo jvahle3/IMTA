@@ -58,19 +58,19 @@ namespace IMTA
         internal void OnEntityDeath(string EntityName)
         {
             UserObject us = MainWindowModelView.FineObjectByName(EntityName);
-            InfoText.Text = us.DeathText;
+            InfoText.Text = EntityName + " Says: " + us.DeathText;
             InfoText.Visibility = Visibility.Visible;
             MainWindowModelView.IsDeathText = true;
             DoubleAnimation doubleAnimation = new DoubleAnimation();
             doubleAnimation.Completed += (o, s) => { };
             doubleAnimation.From = 1;
             doubleAnimation.To = 0;
-            doubleAnimation.Duration = new Duration(new TimeSpan(0,0,0,5));
+            doubleAnimation.Duration = new Duration(new TimeSpan(0,0,0,2));
             foreach (Image i in EnemyBox.Children)
             {
                 if (i.Name.Equals(EntityName))
                 {
-                    i.BeginAnimation(Image.OpacityProperty,doubleAnimation);
+                    i.BeginAnimation(OpacityProperty, doubleAnimation);
                     break;
                 }
                 else continue;
