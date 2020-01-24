@@ -196,7 +196,8 @@ namespace IMTA
                 OnPropertyChanged();
             }
         }
-        public List<string> RuntimeTextList { get; set; } = new List<string>();
+        public List<string> RuntimeTextList { get; set; } = new List<string>(); //For use by runtime not config tool
+        public bool TextEndReached { get; set; } //For use by runtime not config tool
         public event PropertyChangedEventHandler PropertyChanged;
 
 

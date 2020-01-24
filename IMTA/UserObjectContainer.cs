@@ -31,6 +31,7 @@ namespace IMTA
                     {
                         foreach(string s in us.TextList )
                         {
+                            if (s.Equals(string.Empty)) continue;
                             us.RuntimeTextList.Add(s);
                         }
                     }

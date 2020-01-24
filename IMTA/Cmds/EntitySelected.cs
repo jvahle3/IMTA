@@ -34,7 +34,7 @@ namespace IMTA.Cmds
             if(AttackButtonClicked.IsAttackOptions)
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
-                us.UserHp -= MainWindowModelView.UserAttackPower;
+                us.UserHp -= (MainWindowModelView.UserAttackPower - us.UserDef);
                 button.Content = "\n" + us.ObjectName + " \t\t\t\t" + "HP:" + us.UserHp + "\n";
                 ResetMenus(mainW);
                 mainW.SoundPlayer.Source = new Uri((string)MainWindowModelView.AppReader.GetValue("HurtSound", typeof(string)));
@@ -50,14 +50,49 @@ namespace IMTA.Cmds
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
                 ResetMenus(mainW);
                 mainW.InfoText.Visibility = Visibility.Visible;
-                if (us.RuntimeInt >= us.RuntimeTextList.Count) us.RuntimeInt = 0;
+                if (us.RuntimeInt > us.RuntimeTextList.Count -1)
+                {
+                    us.RuntimeInt = 0;
+                    us.TextEndReached = true;
+                }
                 MainWindowModelView.IsTalkText = true;
                 mainW.InfoText.Text = us.ObjectName + " says: " + us.RuntimeTextList.ElementAt(us.RuntimeInt);
-
+                us.RuntimeInt++;
             } else if (SpareButtonClicked.IsSpareMenu)
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
                 ResetMenus(mainW);
+                MainWindowModelView.IsSpareText = true;
+                if (us.HpSpare)
+                {
+                    if (us.UserHp <= us.SpareHP)
+                    {
+                        mainW.OnEntitySpare(us.ObjectName);
+                    } else
+                    {
+                        mainW.InfoText.Visibility = Visibility.Visible;
+                        mainW.InfoText.Text = "This entity can not be spared yet";
+                    }
+                }
+                else if(us.TextSpare)
+                {
+                    if(us.TextEndReached)
+                    {
+                        mainW.OnEntitySpare(us.ObjectName);
+                    } else
+                    {
+                        mainW.InfoText.Visibility = Visibility.Visible;
+                        mainW.InfoText.Text = "This entity can not be spared yet";
+                    }
+                }
+                else if(us.NoSpare)
+                {
+                    mainW.InfoText.Visibility = Visibility.Visible;
+                    mainW.InfoText.Text = "This entity can not be spared!";
+                } else
+                {
+                    throw new ArgumentException("No Valid Argument set to true, this statement should not have fired");
+                }
             } else
             {
                 throw new ArgumentException("No Valid Argument set to true, this statement should not have fired");

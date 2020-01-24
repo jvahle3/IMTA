@@ -42,7 +42,8 @@ namespace IMTA.Models
                 Button button = new Button
                 {
                     Background = Brushes.Black,
-                    Foreground = Brushes.White
+                    Foreground = Brushes.White,
+                    Name = us.ObjectName
                 };
                 string s = "\n" +
                     us.ObjectName + " \t\t\t\t" + "HP:" + us.UserHp +  //Should look somthing like this: name              HP;
@@ -50,7 +51,7 @@ namespace IMTA.Models
                 button.Content = s;
                 button.Command = mainW.EntitySelected;
                 button.CommandParameter = new Pack { name = us.ObjectName, b = button, m = mainW };
-        mainW.EntitySelectionMenu.Children.Add(button);
+                mainW.EntitySelectionMenu.Children.Add(button);
             }
 
         }

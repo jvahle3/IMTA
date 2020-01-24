@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IMTA.Cmds;
+using IMTA.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Markup;
-using System.IO;
-using System.Xml;
-using IMTA.Cmds;
-using IMTA.Models;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 namespace IMTA
 {
     /// <summary>
@@ -43,10 +32,11 @@ namespace IMTA
                 MainWindowModelView mainWindowModelView = new MainWindowModelView(this);
                 LoadImages();
                 mainPanel.Children.Add(SoundPlayer);
-                
-            } catch (Exception e)
+
+            }
+            catch (Exception e)
             {
-                string error = e.Message + '\n' + e.StackTrace + '\n' + e.InnerException ;
+                string error = e.Message + '\n' + e.StackTrace + '\n' + e.InnerException;
                 string exception = "Exception";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage image = MessageBoxImage.Error;
@@ -65,7 +55,7 @@ namespace IMTA
             doubleAnimation.Completed += (o, s) => { };
             doubleAnimation.From = 1;
             doubleAnimation.To = 0;
-            doubleAnimation.Duration = new Duration(new TimeSpan(0,0,0,2));
+            doubleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 2));
             foreach (Image i in EnemyBox.Children)
             {
                 if (i.Name.Equals(EntityName))
@@ -74,6 +64,43 @@ namespace IMTA
                     break;
                 }
                 else continue;
+            }
+            foreach (Button button in EntitySelectionMenu.Children)
+            {
+                if (button.Name.Equals(us.ObjectName))
+                {
+                    EntitySelectionMenu.Children.Remove(button);
+                    break;
+                }
+            }
+        }
+        internal void OnEntitySpare(string EntityName)
+        {
+            UserObject us = MainWindowModelView.FineObjectByName(EntityName);
+            InfoText.Text = EntityName + " Says: " + us.SparedText;
+            InfoText.Visibility = Visibility.Visible;
+            MainWindowModelView.IsDeathText = true;
+            DoubleAnimation doubleAnimation = new DoubleAnimation();
+            doubleAnimation.Completed += (o, s) => { };
+            doubleAnimation.From = 1;
+            doubleAnimation.To = 0;
+            doubleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 2));
+            foreach (Image i in EnemyBox.Children)
+            {
+                if (i.Name.Equals(EntityName))
+                {
+                    i.BeginAnimation(OpacityProperty, doubleAnimation);
+                    break;
+                }
+                else continue;
+            }
+            foreach (Button button in EntitySelectionMenu.Children)
+            {
+                if (button.Name.Equals(us.ObjectName))
+                {
+                    EntitySelectionMenu.Children.Remove(button);
+                    break;
+                }
             }
         }
 
