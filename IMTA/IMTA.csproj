@@ -79,8 +79,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Cmds\AttackButtonClicked.cs" />
-    <Compile Include="Cmds\CharacterIsAttacked.cs" />
     <Compile Include="Cmds\CommandBase.cs" />
+    <Compile Include="Cmds\EntitySelected.cs" />
+    <Compile Include="Cmds\SpareButtonClicked.cs" />
+    <Compile Include="Cmds\TalkButtonClicked.cs" />
     <Compile Include="UserObjectContainer.cs" />
     <Compile Include="UserObject.cs" />
     <Page Include="MainWindow.xaml">
@@ -97,7 +99,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Creature.cs" />
     <Compile Include="Models\MainWindowModelView.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

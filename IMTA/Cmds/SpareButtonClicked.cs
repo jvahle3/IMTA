@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
+
 namespace IMTA.Cmds
 {
-    class AttackButtonClicked : CommandBase
+    class SpareButtonClicked : CommandBase
     {
-        public static bool IsAttackOptions = false;
+        public static bool IsSpareMenu = false;
         public override bool CanExecute(object parameter)
         {
-            return !IsAttackOptions && !Models.MainWindowModelView.IsDeathText && !Models.MainWindowModelView.IsTalkText && !Models.MainWindowModelView.IsSpareText; //If the attack selection panel is open, disable the attack button
+            return !IsSpareMenu && !Models.MainWindowModelView.IsDeathText && !Models.MainWindowModelView.IsTalkText && !Models.MainWindowModelView.IsSpareText;
         }
 
         public override void Execute(object parameter)
         {
-            IsAttackOptions = true;
+            IsSpareMenu = true;
             MainWindow window = (MainWindow)parameter;
             window.EntitySelectionMenu.Visibility = System.Windows.Visibility.Visible;
-            SpareButtonClicked.IsSpareMenu = false;
+            AttackButtonClicked.IsAttackOptions = false;
             TalkButtonClicked.IsTalkMenu = false;
         }
     }

@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Controls;
 namespace IMTA.Cmds
 {
-    class AttackButtonClicked : CommandBase
+    class TalkButtonClicked : CommandBase
     {
-        public static bool IsAttackOptions = false;
+        public static bool IsTalkMenu = false;
         public override bool CanExecute(object parameter)
         {
-            return !IsAttackOptions && !Models.MainWindowModelView.IsDeathText && !Models.MainWindowModelView.IsTalkText && !Models.MainWindowModelView.IsSpareText; //If the attack selection panel is open, disable the attack button
+            return !IsTalkMenu && !Models.MainWindowModelView.IsDeathText && !Models.MainWindowModelView.IsTalkText && !Models.MainWindowModelView.IsSpareText; //only work if button has not been pressed already
         }
 
         public override void Execute(object parameter)
         {
-            IsAttackOptions = true;
+            IsTalkMenu = true;
             MainWindow window = (MainWindow)parameter;
             window.EntitySelectionMenu.Visibility = System.Windows.Visibility.Visible;
+            AttackButtonClicked.IsAttackOptions = false;
             SpareButtonClicked.IsSpareMenu = false;
-            TalkButtonClicked.IsTalkMenu = false;
         }
     }
 }

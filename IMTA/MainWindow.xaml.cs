@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IMTA.Cmds;
+using IMTA.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Markup;
-using System.IO;
-using System.Xml;
-using IMTA.Cmds;
 namespace IMTA
 {
     /// <summary>
@@ -25,16 +16,27 @@ namespace IMTA
     {
         private ICommand _AttackButtonClicked = null;
         public ICommand AttackButtonClicked => _AttackButtonClicked ?? (_AttackButtonClicked = new AttackButtonClicked());
+        private ICommand _SpareButtonClicked = null;
+        public ICommand SpareButtonClicked => _SpareButtonClicked ?? (_SpareButtonClicked = new SpareButtonClicked());
+        private ICommand _TalkButtonClicked = null;
+        public ICommand TalkButtonClicked => _TalkButtonClicked ?? (_TalkButtonClicked = new TalkButtonClicked());
+        private ICommand _EntitySelected = null;
+        public ICommand EntitySelected => _EntitySelected ?? (_EntitySelected = new EntitySelected());
+        public MediaElement SoundPlayer = new MediaElement { Visibility = Visibility.Hidden, LoadedBehavior = MediaState.Manual };
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
                 InitalizePanels();
+                MainWindowModelView mainWindowModelView = new MainWindowModelView(this);
                 LoadImages();
-            } catch (Exception e)
+                mainPanel.Children.Add(SoundPlayer);
+
+            }
+            catch (Exception e)
             {
-                string error = e.Message + '\n' + e.StackTrace + '\n' + e.InnerException ;
+                string error = e.Message + '\n' + e.StackTrace + '\n' + e.InnerException;
                 string exception = "Exception";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage image = MessageBoxImage.Error;
@@ -42,7 +44,66 @@ namespace IMTA
                 Environment.Exit(1);
             }
         }
-        
+
+        internal void OnEntityDeath(string EntityName)
+        {
+            UserObject us = MainWindowModelView.FineObjectByName(EntityName);
+            InfoText.Text = EntityName + " Says: " + us.DeathText;
+            InfoText.Visibility = Visibility.Visible;
+            MainWindowModelView.IsDeathText = true;
+            DoubleAnimation doubleAnimation = new DoubleAnimation();
+            doubleAnimation.Completed += (o, s) => { };
+            doubleAnimation.From = 1;
+            doubleAnimation.To = 0;
+            doubleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 2));
+            foreach (Image i in EnemyBox.Children)
+            {
+                if (i.Name.Equals(EntityName))
+                {
+                    i.BeginAnimation(OpacityProperty, doubleAnimation);
+                    break;
+                }
+                else continue;
+            }
+            foreach (Button button in EntitySelectionMenu.Children)
+            {
+                if (button.Name.Equals(us.ObjectName))
+                {
+                    EntitySelectionMenu.Children.Remove(button);
+                    break;
+                }
+            }
+        }
+        internal void OnEntitySpare(string EntityName)
+        {
+            UserObject us = MainWindowModelView.FineObjectByName(EntityName);
+            InfoText.Text = EntityName + " Says: " + us.SparedText;
+            InfoText.Visibility = Visibility.Visible;
+            MainWindowModelView.IsDeathText = true;
+            DoubleAnimation doubleAnimation = new DoubleAnimation();
+            doubleAnimation.Completed += (o, s) => { };
+            doubleAnimation.From = 1;
+            doubleAnimation.To = 0;
+            doubleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 2));
+            foreach (Image i in EnemyBox.Children)
+            {
+                if (i.Name.Equals(EntityName))
+                {
+                    i.BeginAnimation(OpacityProperty, doubleAnimation);
+                    break;
+                }
+                else continue;
+            }
+            foreach (Button button in EntitySelectionMenu.Children)
+            {
+                if (button.Name.Equals(us.ObjectName))
+                {
+                    EntitySelectionMenu.Children.Remove(button);
+                    break;
+                }
+            }
+        }
+
         private void InitalizePanels()
         {
             mainPanel.Height = this.Height;
@@ -70,9 +131,40 @@ namespace IMTA
                 bitmapImage.BeginInit();
                 bitmapImage.UriSource = new Uri(us.ImageFileName);
                 image.Source = bitmapImage;
+                image.Name = us.ObjectName;
                 bitmapImage.EndInit();
                 EnemyBox.Children.Add(image);
             }
+        }
+        public void HurtAnimation(string ObjectName)
+        {
+            TranslateTransform translateTransform = new TranslateTransform();
+            DoubleAnimation translateAnimation = new DoubleAnimation();
+            translateAnimation.Completed += (o, s) => { };
+            translateAnimation.From = 0;
+            translateAnimation.To = 50;
+            translateAnimation.Duration = new Duration(new TimeSpan(999999));
+            translateAnimation.AutoReverse = true;
+            foreach (Image image in EnemyBox.Children)
+            {
+                if (image.Name.Equals(ObjectName))
+                {
+                    image.RenderTransform = translateTransform;
+                    translateTransform.BeginAnimation(TranslateTransform.XProperty, translateAnimation);
+                }
+            }
+        }
+        private void InfoBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (MainWindowModelView.IsDeathText == true || MainWindowModelView.IsTalkText == true || MainWindowModelView.IsSpareText == true)
+            {
+                MainWindowModelView.IsDeathText = false;
+                MainWindowModelView.IsTalkText = false;
+                MainWindowModelView.IsSpareText = false;
+                InfoText.Text = string.Empty;
+                InfoText.Visibility = Visibility.Hidden;
+            }
+            else return;
         }
     }
 }
