@@ -9,6 +9,9 @@ using System.Windows.Media;
 using System.IO;
 using System.Xml;
 using System.Configuration;
+using System.Windows;
+using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 namespace IMTA.Models
 {
 
@@ -23,16 +26,21 @@ namespace IMTA.Models
             public MainWindow m;
         }
         private MainWindow mainW;
+        public Player player { get; set; }
         public static AppSettingsReader AppReader = new AppSettingsReader();
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
         public static int UserHealth { get; set; } = (int)AppReader.GetValue("UserHealth", typeof(int));
         public static bool IsDeathText { get; set; }
         public static bool IsTalkText { get; set; }
         public static bool IsSpareText { get; set; }
+        public static bool IsUsersTurn { get; set; }
+        public static UIElementCollection AttackPaths { get; set; }
         public MainWindowModelView(MainWindow mainWindow)
         {
             mainW = mainWindow;
+            player = new Player();
             SetUpEntityButtons();
+            SetUpAttackAnimations();
         }
         private void SetUpEntityButtons()
         {
@@ -55,6 +63,15 @@ namespace IMTA.Models
             }
 
         }
+        private void SetUpAttackAnimations()
+        {
+            using (FileStream fs = File.OpenRead(@"C:\Users\jvahle3\source\repos\IMTA\IMTA\XMLFile1.xml"))
+            {
+                XmlReader xmlr = XmlReader.Create(fs);
+                Ellipse userE = (Ellipse)XamlReader.Load(xmlr);
+                mainW.AttackWindow.Children.Add(userE);
+            }
+        }
         public static UserObject FineObjectByName(string Name)
         {
             foreach(UserObject us in UserObjectContainer.UOBJ)
@@ -63,6 +80,11 @@ namespace IMTA.Models
             }
             throw new KeyNotFoundException("No Object By This Name Found");
         }
+        private void PlayerAttacked(object sender, EventArgs e)
+        {
+            UIElement iElement = (UIElement)sender;
+            iElement.Visibility = Visibility.Hidden;
 
+        }
     }
 }

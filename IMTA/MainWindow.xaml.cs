@@ -163,8 +163,13 @@ namespace IMTA
                 MainWindowModelView.IsSpareText = false;
                 InfoText.Text = string.Empty;
                 InfoText.Visibility = Visibility.Hidden;
+                EntityTurn();
             }
             else return;
+        }
+        private void EntityTurn()
+        {
+            
         }
     }
 }

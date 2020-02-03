@@ -10,7 +10,7 @@ namespace IMTA.Models
     public class Player
     {
         #region vars
-        private int _Health;
+        private int _Health = (int)MainWindowModelView.AppReader.GetValue("UserHealth", typeof(int));
         #endregion
         #region Props
         public int Health
@@ -25,12 +25,11 @@ namespace IMTA.Models
                 _Health += value;
             }
         }
-        public int Power { get; set; }
         #endregion
 
         private void YouDied() //Should do somthing to end the game and tell you your dead...
         {
-
+            Environment.Exit(0);
         }
     }
 }
