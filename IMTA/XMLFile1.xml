@@ -9,12 +9,13 @@
                 <Ellipse.Fill>Yellow</Ellipse.Fill>
                 <Ellipse.Height>100</Ellipse.Height>
                 <Ellipse.Width>100</Ellipse.Width>
+                <Canvas.Top>50</Canvas.Top>
                 <Ellipse.Triggers>
                     <EventTrigger RoutedEvent="Label.Loaded">
                         <EventTrigger.Actions>
                             <BeginStoryboard>
-                                <Storyboard TargetProperty="Width">
-                                    <DoubleAnimation From="100" To="150" Duration="0:0:5" RepeatBehavior="1"/>
+                                <Storyboard x:Name="Animation" TargetProperty="Width">
+                                    <DoubleAnimation From="100" To="150" Duration="0:0:5"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>

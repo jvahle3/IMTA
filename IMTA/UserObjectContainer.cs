@@ -16,7 +16,7 @@ namespace IMTA
     /// </summary>
     public static class UserObjectContainer
     {
-        public static readonly IList<UserObject> UOBJ;
+        public static readonly List<UserObject> UOBJ;
         static UserObjectContainer()
         {
             AppSettingsReader ASR = new AppSettingsReader();

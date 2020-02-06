@@ -22,7 +22,7 @@ namespace IMTAConfigurationUtility
                 string title = "Somthing happened";
                 MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                 MessageBoxImage messageBoxImage = MessageBoxImage.Error;
-                MessageBox.Show(title, msg, messageBoxButton, messageBoxImage);
+                MessageBox.Show(msg, title, messageBoxButton, messageBoxImage);
                 Environment.Exit(1);
             };
         }

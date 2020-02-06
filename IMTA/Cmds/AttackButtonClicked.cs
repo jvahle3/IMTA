@@ -12,6 +12,7 @@ namespace IMTA.Cmds
         public static bool IsAttackOptions = false;
         public override bool CanExecute(object parameter)
         {
+            if (!Models.MainWindowModelView.IsUsersTurn) return false;
             return !IsAttackOptions && !Models.MainWindowModelView.IsDeathText && !Models.MainWindowModelView.IsTalkText && !Models.MainWindowModelView.IsSpareText; //If the attack selection panel is open, disable the attack button
         }
 

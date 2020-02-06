@@ -17,8 +17,8 @@
             <Border BorderBrush="Gray" BorderThickness="5" Width="1364" Height="238" Canvas.Left="3" Canvas.Top="10"/>
             <TextBlock x:Name="InfoText" Background="Black" Foreground="White" Height="204" Width="1326" Canvas.Left="25" Canvas.Top="25" Visibility="Hidden" FontSize="36"/>
             <WrapPanel x:Name="EntitySelectionMenu" Height="204" Margin="25,25,25,25" Width="1326" Visibility="Hidden" />
-            <Border x:Name="AttackBox" BorderBrush="Green" BorderThickness="5" Canvas.Left="378" Canvas.Top="25" Height="204" Width="622">
-                <Canvas x:Name="AttackWindow"/>
+            <Border  Visibility="Hidden" x:Name="AttackBox" BorderBrush="Green" BorderThickness="5" Canvas.Left="378" Canvas.Top="25" Height="204" Width="622">
+                <Canvas Visibility="Hidden" x:Name="AttackWindow"/>
             </Border>
         </Canvas>
         <StackPanel x:Name="ButtonBox" Orientation="Horizontal" Height="198" Width="1382">
