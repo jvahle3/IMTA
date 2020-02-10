@@ -68,30 +68,29 @@ namespace IMTA.Cmds
                     if (us.UserHp <= us.SpareHP)
                     {
                         mainW.OnEntitySpare(us.ObjectName);
+                        return;
                     } else
                     {
                         mainW.InfoText.Visibility = Visibility.Visible;
                         mainW.InfoText.Text = "This entity can not be spared yet";
                     }
                 }
-                else if(us.TextSpare)
+                if(us.TextSpare)
                 {
                     if(us.TextEndReached)
                     {
                         mainW.OnEntitySpare(us.ObjectName);
+                        return;
                     } else
                     {
                         mainW.InfoText.Visibility = Visibility.Visible;
                         mainW.InfoText.Text = "This entity can not be spared yet";
                     }
                 }
-                else if(us.NoSpare)
+                if (us.NoSpare)
                 {
                     mainW.InfoText.Visibility = Visibility.Visible;
                     mainW.InfoText.Text = "This entity can not be spared!";
-                } else
-                {
-                    throw new ArgumentException("No Valid Argument set to true, this statement should not have fired");
                 }
             } else
             {

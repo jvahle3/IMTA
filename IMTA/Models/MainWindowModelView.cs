@@ -26,6 +26,36 @@ namespace IMTA.Models
             public MainWindow m;
         }
         private MainWindow mainW;
+        public enum EndState { PlayerWin, PlayerLose, NothingYet };
+        public static EndState _gameOverEndState;
+        public static EndState GameOverEndState { get
+            {
+                return _gameOverEndState;
+            } set {
+                _gameOverEndState = value;
+                GameOver();
+            } }
+
+        private static void GameOver()
+        {
+            if(GameOverEndState == EndState.PlayerWin)
+            {
+                MessageBoxImage mi = MessageBoxImage.Information;
+                string title = "YOU WIN!";
+                string msg = "Congradulations, you won!";
+                MessageBox.Show(title, msg, MessageBoxButton.OK, mi);
+                Environment.Exit(0);
+            } else if (GameOverEndState == EndState.PlayerLose)
+            {
+                MessageBoxImage mi = MessageBoxImage.Information;
+                string title = "You Lose!";
+                string msg = ":(";
+                MessageBox.Show(title, msg, MessageBoxButton.OK, mi);
+                Environment.Exit(0);
+            }
+        }
+
+        private static bool _IsUsersTurn = true;
         public Player player { get; set; }
         public static AppSettingsReader AppReader = new AppSettingsReader();
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
@@ -33,7 +63,17 @@ namespace IMTA.Models
         public static bool IsDeathText { get; set; }
         public static bool IsTalkText { get; set; }
         public static bool IsSpareText { get; set; }
-        public static bool IsUsersTurn { get; set; } = true;
+        public static bool IsUsersTurn { get
+            {
+                return _IsUsersTurn;
+            } set {
+                _IsUsersTurn = value;
+                foreach(UserObject us in UserObjectContainer.UOBJ)
+                {
+                    if (us.IsAlive) return;
+                    GameOverEndState = EndState.PlayerWin;
+                }
+            } }
         public static bool IsAttackInfo { get; set; }
         public static UIElementCollection AttackPaths { get; set; }
         public MainWindowModelView(MainWindow mainWindow)
