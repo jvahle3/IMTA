@@ -185,12 +185,20 @@ namespace IMTA
                     Warning2.Visibility = Visibility.Visible;
                     XmlReader xmlr = XmlReader.Create(new StringReader(us.XAML));
                     Shape userE = (Shape)XamlReader.Load(xmlr);
+                    userE.MouseEnter += new MouseEventHandler(AttackHitPlayer);
                     Storyboard storyboard = userE.FindName("Animation") as Storyboard;
                     storyboard.Completed += new EventHandler(AttackCompleted);
                     AttackWindow.Children.Add(userE);
                 }
              
             }
+        }
+        public void AttackHitPlayer(object sender, MouseEventArgs e)
+        {
+            Shape shape = (Shape)sender;
+            shape.Visibility = Visibility.Hidden;
+
+            shape.MouseEnter -= AttackHitPlayer;
         }
         private int _attacksCompleted;
         public void AttackCompleted(object sender, EventArgs e)

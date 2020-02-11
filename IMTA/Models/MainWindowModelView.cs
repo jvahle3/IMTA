@@ -56,7 +56,6 @@ namespace IMTA.Models
         }
 
         private static bool _IsUsersTurn = true;
-        public Player player { get; set; }
         public static AppSettingsReader AppReader = new AppSettingsReader();
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
         public static int UserHealth { get; set; } = (int)AppReader.GetValue("UserHealth", typeof(int));
@@ -79,7 +78,6 @@ namespace IMTA.Models
         public MainWindowModelView(MainWindow mainWindow)
         {
             mainW = mainWindow;
-            player = new Player();
             SetUpEntityButtons();
         }
         private void SetUpEntityButtons()
