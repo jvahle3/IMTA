@@ -83,6 +83,7 @@
     <Compile Include="Cmds\EntitySelected.cs" />
     <Compile Include="Cmds\SpareButtonClicked.cs" />
     <Compile Include="Cmds\TalkButtonClicked.cs" />
+    <Compile Include="Models\DataRecorder.cs" />
     <Compile Include="UserObjectContainer.cs" />
     <Compile Include="UserObject.cs" />
     <Page Include="MainWindow.xaml">
@@ -100,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\MainWindowModelView.cs" />
-    <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -126,7 +126,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
@@ -138,6 +137,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="XMLFile1.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

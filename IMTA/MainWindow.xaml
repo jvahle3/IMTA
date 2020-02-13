@@ -9,22 +9,42 @@
         Title="IMTA" Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}" Background="Black"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         KeyDown="InfoBox_KeyDown">
-    <StackPanel Orientation="Vertical" Name="mainPanel" Height="744" Width="1382">
+    <StackPanel  Orientation="Vertical" Name="mainPanel" Height="744" Width="1382">
         <StackPanel x:Name="EnemyBox" Height="258" Width="1382" Orientation="Horizontal">
 
         </StackPanel>
         <Canvas x:Name="InfoBox" Height="258" Width="1382" Keyboard.KeyDown="InfoBox_KeyDown">
-            <Border BorderBrush="Gray" BorderThickness="5" Width="1364" Height="238" Canvas.Left="3" Canvas.Top="10"/>
+            <Label Content="Health" Foreground="White" Canvas.Left="1112" Canvas.Top="211" Width="56"/>
+            <Label Name="CurrentHP" Content="{Binding Path=MainWindowModelView.UserHealth}" Foreground="White" Canvas.Left="1168" Canvas.Top="211" Width="56"/>
+            <Label Name="MaxHp" Content="Label" Foreground="White" Canvas.Left="1224" Canvas.Top="211" Width="56"/>
+            <Border BorderBrush="Gray" BorderThickness="5" Width="1364" Height="238" Canvas.Left="3" Canvas.Top="10">
+            </Border>
+            <Label Name="Warning1" Visibility="Hidden" Content="Keep your mouse in the box!" Canvas.Left="211" Canvas.Top="166" Foreground="White"/>
+            <Label Name="Warning2" Visibility="Hidden" Content="Keep your mouse in the box!" Canvas.Left="1026" Canvas.Top="174" Foreground="White"/>
             <TextBlock x:Name="InfoText" Background="Black" Foreground="White" Height="204" Width="1326" Canvas.Left="25" Canvas.Top="25" Visibility="Hidden" FontSize="36"/>
             <WrapPanel x:Name="EntitySelectionMenu" Height="204" Margin="25,25,25,25" Width="1326" Visibility="Hidden" />
+            <Border  Visibility="Hidden" x:Name="AttackBox" BorderBrush="Green" BorderThickness="5" Canvas.Left="378" Canvas.Top="25" Height="204" Width="622" MouseLeave="AttackBox_MouseLeave" MouseEnter="AttackBox_MouseEnter">
+                <Canvas Visibility="Hidden" x:Name="AttackWindow"/>
+            </Border>
+            <Path x:Name="Arrow1" Visibility="Hidden" Data="M0,5.4376329 L96,5.4376329 96,27.437633 0,27.437633 z M96.416458,0 L122.50224,17.875459 97.583824,34.994819 z" Fill="Red" Height="34.996" Canvas.Left="230.249" Stretch="Fill" Canvas.Top="109.002" Width="122.502"/>
+            <Path x:Name="Arrow2" Visibility="Hidden" Data="M0,5.4376329 L96,5.4376329 96,27.437633 0,27.437633 z M96.416458,0 L122.50224,17.875459 97.583824,34.994819 z" Fill="Red" Height="34.996" Canvas.Left="1034.249" Stretch="Fill" Canvas.Top="113.002" Width="122.502" RenderTransformOrigin="0.5,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-180.785"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
         </Canvas>
         <StackPanel x:Name="ButtonBox" Orientation="Horizontal" Height="198" Width="1382">
             <Separator Margin="0" Width="173.125" />
-            <Button x:Name="AttackButton" Style="{StaticResource IMTAButtons}" Content="Attack" Foreground="Red" Command="{Binding Path=AttackButtonClicked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button x:Name="AttackButton" Style="{StaticResource IMTAButtons}" Content="Attack" Foreground="Red" Command="{Binding AttackButtonClicked, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"/>
             <Separator Margin="0" Width="301.25" />
-            <Button x:Name="Talk" Style="{StaticResource IMTAButtons}" Content="Talk" Foreground="Blue" Command="{Binding Path=TalkButtonClicked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button x:Name="Talk" Style="{StaticResource IMTAButtons}" Content="Talk" Foreground="Blue" Command="{Binding TalkButtonClicked, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"/>
             <Separator Margin="0" Width="301.25" />
-            <Button x:Name="Spare" Style="{StaticResource IMTAButtons}" Content="Spare" Foreground="Green" Command="{Binding Path=SpareButtonClicked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button x:Name="Spare" Style="{StaticResource IMTAButtons}" Content="Spare" Foreground="Green" Command="{Binding SpareButtonClicked, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"/>
             <Separator Margin="0" Width="131" />
         </StackPanel>
 

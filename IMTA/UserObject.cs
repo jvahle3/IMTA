@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-
+using System.Windows.Controls;
 namespace IMTA
 {
     /// <summary>
@@ -33,6 +33,8 @@ namespace IMTA
         private bool _noSpare;
         private ObservableCollection<string> _textList = new ObservableCollection<string>();
         private ObservableCollection<int> _ints = new ObservableCollection<int>();
+        [NonSerialized]
+        public Canvas UserCanvas;
         public string ObjectName
         {
             set
@@ -172,6 +174,7 @@ namespace IMTA
                 OnPropertyChanged();
             }
         }
+        public bool IsAlive { get; set; } = true;
         public ObservableCollection<string> TextList
         {
             get
@@ -199,6 +202,7 @@ namespace IMTA
         public List<string> RuntimeTextList { get; set; } = new List<string>(); //For use by runtime not config tool
         public bool TextEndReached { get; set; } //For use by runtime not config tool
         public event PropertyChangedEventHandler PropertyChanged;
+        
 
 
         protected void OnPropertyChanged([CallerMemberName] string propteryName = "")

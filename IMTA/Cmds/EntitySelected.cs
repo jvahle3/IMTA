@@ -34,7 +34,9 @@ namespace IMTA.Cmds
             if(AttackButtonClicked.IsAttackOptions)
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
+                MainWindowModelView.DataRecorderObject.Write(us,DataRecorder.RecordType.ClickedAttack,null);
                 us.UserHp -= (MainWindowModelView.UserAttackPower - us.UserDef);
+                MainWindowModelView.DataRecorderObject.Write(us, DataRecorder.RecordType.DamagedEntity, null);
                 button.Content = "\n" + us.ObjectName + " \t\t\t\t" + "HP:" + us.UserHp + "\n";
                 ResetMenus(mainW);
                 mainW.SoundPlayer.Source = new Uri((string)MainWindowModelView.AppReader.GetValue("HurtSound", typeof(string)));
@@ -42,12 +44,14 @@ namespace IMTA.Cmds
                 mainW.HurtAnimation(us.ObjectName);
                 if (us.UserHp <= 0)
                 {
+                    MainWindowModelView.DataRecorderObject.Write(us, DataRecorder.RecordType.KilledEntity, null);
                     mainW.OnEntityDeath(ObjectName);
                     return;
                 }
             } else if (TalkButtonClicked.IsTalkMenu)
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
+                MainWindowModelView.DataRecorderObject.Write(us, DataRecorder.RecordType.TalkedTo, null);
                 ResetMenus(mainW);
                 mainW.InfoText.Visibility = Visibility.Visible;
                 if (us.RuntimeInt > us.RuntimeTextList.Count -1)
@@ -62,36 +66,36 @@ namespace IMTA.Cmds
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
                 ResetMenus(mainW);
+                MainWindowModelView.DataRecorderObject.Write(us, DataRecorder.RecordType.TriedToSpare, null);
                 MainWindowModelView.IsSpareText = true;
                 if (us.HpSpare)
                 {
                     if (us.UserHp <= us.SpareHP)
                     {
                         mainW.OnEntitySpare(us.ObjectName);
+                        return;
                     } else
                     {
                         mainW.InfoText.Visibility = Visibility.Visible;
                         mainW.InfoText.Text = "This entity can not be spared yet";
                     }
                 }
-                else if(us.TextSpare)
+                if(us.TextSpare)
                 {
                     if(us.TextEndReached)
                     {
                         mainW.OnEntitySpare(us.ObjectName);
+                        return;
                     } else
                     {
                         mainW.InfoText.Visibility = Visibility.Visible;
                         mainW.InfoText.Text = "This entity can not be spared yet";
                     }
                 }
-                else if(us.NoSpare)
+                if (us.NoSpare)
                 {
                     mainW.InfoText.Visibility = Visibility.Visible;
                     mainW.InfoText.Text = "This entity can not be spared!";
-                } else
-                {
-                    throw new ArgumentException("No Valid Argument set to true, this statement should not have fired");
                 }
             } else
             {

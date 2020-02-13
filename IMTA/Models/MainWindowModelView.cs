@@ -9,6 +9,9 @@ using System.Windows.Media;
 using System.IO;
 using System.Xml;
 using System.Configuration;
+using System.Windows;
+using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 namespace IMTA.Models
 {
 
@@ -23,12 +26,57 @@ namespace IMTA.Models
             public MainWindow m;
         }
         private MainWindow mainW;
+        public enum EndState { PlayerWin, PlayerLose, NothingYet };
+        public static EndState _gameOverEndState;
+        public static EndState GameOverEndState { get
+            {
+                return _gameOverEndState;
+            } set {
+                _gameOverEndState = value;
+                GameOver();
+            } }
+
+        private static void GameOver()
+        {
+            if(GameOverEndState == EndState.PlayerWin)
+            {
+                MainWindowModelView.DataRecorderObject.Write(null, DataRecorder.RecordType.GameWon, null);
+                MessageBoxImage mi = MessageBoxImage.Information;
+                string title = "YOU WIN!";
+                string msg = "Congradulations, you won!";
+                MessageBox.Show(title, msg, MessageBoxButton.OK, mi);
+                Environment.Exit(0);
+            } else if (GameOverEndState == EndState.PlayerLose)
+            {
+                MainWindowModelView.DataRecorderObject.Write(null, DataRecorder.RecordType.GameLost, null);
+                MessageBoxImage mi = MessageBoxImage.Information;
+                string title = "You Lose!";
+                string msg = ":(";
+                MessageBox.Show(title, msg, MessageBoxButton.OK, mi);
+                Environment.Exit(0);
+            }
+        }
+        private static bool _IsUsersTurn = true;
         public static AppSettingsReader AppReader = new AppSettingsReader();
+        public static DataRecorder DataRecorderObject { get; } = new DataRecorder();
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
         public static int UserHealth { get; set; } = (int)AppReader.GetValue("UserHealth", typeof(int));
         public static bool IsDeathText { get; set; }
         public static bool IsTalkText { get; set; }
         public static bool IsSpareText { get; set; }
+        public static bool IsUsersTurn { get
+            {
+                return _IsUsersTurn;
+            } set {
+                _IsUsersTurn = value;
+                foreach(UserObject us in UserObjectContainer.UOBJ)
+                {
+                    if (us.IsAlive) return;
+                    GameOverEndState = EndState.PlayerWin;
+                }
+            } }
+        public static bool IsAttackInfo { get; set; }
+        public static UIElementCollection AttackPaths { get; set; }
         public MainWindowModelView(MainWindow mainWindow)
         {
             mainW = mainWindow;
@@ -63,6 +111,5 @@ namespace IMTA.Models
             }
             throw new KeyNotFoundException("No Object By This Name Found");
         }
-
     }
 }
