@@ -34,7 +34,9 @@ namespace IMTA.Cmds
             if(AttackButtonClicked.IsAttackOptions)
             {
                 UserObject us = Models.MainWindowModelView.FineObjectByName(ObjectName);
+                MainWindowModelView.DataRecorderObject.Write(us,DataRecorder.RecordType.ClickedAttack,null);
                 us.UserHp -= (MainWindowModelView.UserAttackPower - us.UserDef);
+                MainWindowModelView.DataRecorderObject.Write(us, DataRecorder.RecordType.DamagedEntity, null);
                 button.Content = "\n" + us.ObjectName + " \t\t\t\t" + "HP:" + us.UserHp + "\n";
                 ResetMenus(mainW);
                 mainW.SoundPlayer.Source = new Uri((string)MainWindowModelView.AppReader.GetValue("HurtSound", typeof(string)));
