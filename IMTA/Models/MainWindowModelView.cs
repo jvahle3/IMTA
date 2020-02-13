@@ -40,6 +40,7 @@ namespace IMTA.Models
         {
             if(GameOverEndState == EndState.PlayerWin)
             {
+                MainWindowModelView.DataRecorderObject.Write(null, DataRecorder.RecordType.GameWon, null);
                 MessageBoxImage mi = MessageBoxImage.Information;
                 string title = "YOU WIN!";
                 string msg = "Congradulations, you won!";
@@ -47,6 +48,7 @@ namespace IMTA.Models
                 Environment.Exit(0);
             } else if (GameOverEndState == EndState.PlayerLose)
             {
+                MainWindowModelView.DataRecorderObject.Write(null, DataRecorder.RecordType.GameLost, null);
                 MessageBoxImage mi = MessageBoxImage.Information;
                 string title = "You Lose!";
                 string msg = ":(";

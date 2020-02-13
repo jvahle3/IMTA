@@ -33,9 +33,9 @@ namespace IMTA
         private int _toAttack;
         public MainWindow()
         {
-                InitializeComponent();
-                InitalizePanels();
-                MainWindowModelView mainWindowModelView = new MainWindowModelView(this);
+            InitializeComponent();
+            InitalizePanels();
+            MainWindowModelView mainWindowModelView = new MainWindowModelView(this);
             SetUpHealth();
             LoadImages();
             mainPanel.Children.Add(SoundPlayer);
@@ -82,6 +82,7 @@ namespace IMTA
         {
             UserObject us = MainWindowModelView.FineObjectByName(EntityName);
             us.IsAlive = false;
+            MainWindowModelView.DataRecorderObject.Write(us, DataRecorder.RecordType.SparedEntity, null);
             InfoText.Text = EntityName + " Says: " + us.SparedText;
             InfoText.Visibility = Visibility.Visible;
             MainWindowModelView.IsDeathText = true;
@@ -171,6 +172,7 @@ namespace IMTA
                 MainWindowModelView.IsSpareText = false;
                 InfoText.Text = string.Empty;
                 InfoText.Visibility = Visibility.Hidden;
+                MainWindowModelView.DataRecorderObject.Write(null, DataRecorder.RecordType.AdvancedGameState, null);
                 EntityTurn();
                 MainWindowModelView.IsAttackInfo = false;
             }
@@ -208,6 +210,7 @@ namespace IMTA
             shape.Visibility = Visibility.Hidden;
             UserObject us = MainWindowModelView.FineObjectByName(shape.Name);
             MainWindowModelView.UserHealth -= us.UserAttack;
+            MainWindowModelView.DataRecorderObject.Write(us, DataRecorder.RecordType.TookDamageFromEntity, null);
             CurrentHP.Content = MainWindowModelView.UserHealth;
             if(MainWindowModelView.UserHealth <= 0)
             {
@@ -238,6 +241,8 @@ namespace IMTA
                     TimeSpan timeSpan = TimeSpan.FromTicks(tempInt);
                     MainWindowModelView.UserHealth -= (int)timeSpan.TotalSeconds;
                     CurrentHP.Content = MainWindowModelView.UserHealth;
+                    int I = (int)timeSpan.TotalSeconds;
+                    if(I != 0) MainWindowModelView.DataRecorderObject.Write(null, DataRecorder.RecordType.TookDamageFromBox, I.ToString());
                     if (MainWindowModelView.UserHealth <= 0)
                     {
                         MainWindowModelView.GameOverEndState = MainWindowModelView.EndState.PlayerLose;
@@ -256,11 +261,14 @@ namespace IMTA
         {
             if (MainWindowModelView.IsUsersTurn) return;
             if(MouseOutTime !=0)
-            {
+            { 
                 long tempInt = DateTime.Now.Ticks - MouseOutTime;
                 TimeSpan timeSpan = TimeSpan.FromTicks(tempInt);
                 MainWindowModelView.UserHealth -= (int)timeSpan.TotalSeconds;
                 CurrentHP.Content = MainWindowModelView.UserHealth;
+                int I = (int)timeSpan.TotalSeconds;
+                if(I !=0) MainWindowModelView.DataRecorderObject.Write(null, DataRecorder.RecordType.TookDamageFromBox, I.ToString());
+
                 if (MainWindowModelView.UserHealth <= 0)
                 {
                     MainWindowModelView.GameOverEndState = MainWindowModelView.EndState.PlayerLose;
