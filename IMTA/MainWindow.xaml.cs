@@ -36,8 +36,16 @@ namespace IMTA
                 InitializeComponent();
                 InitalizePanels();
                 MainWindowModelView mainWindowModelView = new MainWindowModelView(this);
-                LoadImages();
-                mainPanel.Children.Add(SoundPlayer);
+            SetUpHealth();
+            LoadImages();
+            mainPanel.Children.Add(SoundPlayer);
+        }
+
+        private void SetUpHealth()
+        {
+            string s = "/" + MainWindowModelView.UserHealth;
+            MaxHp.Content = s;
+            CurrentHP.Content = MainWindowModelView.UserHealth;
         }
 
         internal void OnEntityDeath(string EntityName)
@@ -185,6 +193,7 @@ namespace IMTA
                     Warning2.Visibility = Visibility.Visible;
                     XmlReader xmlr = XmlReader.Create(new StringReader(us.XAML));
                     Shape userE = (Shape)XamlReader.Load(xmlr);
+                    userE.Name = us.ObjectName;
                     userE.MouseEnter += new MouseEventHandler(AttackHitPlayer);
                     Storyboard storyboard = userE.FindName("Animation") as Storyboard;
                     storyboard.Completed += new EventHandler(AttackCompleted);
@@ -197,7 +206,13 @@ namespace IMTA
         {
             Shape shape = (Shape)sender;
             shape.Visibility = Visibility.Hidden;
-
+            UserObject us = MainWindowModelView.FineObjectByName(shape.Name);
+            MainWindowModelView.UserHealth -= us.UserAttack;
+            CurrentHP.Content = MainWindowModelView.UserHealth;
+            if(MainWindowModelView.UserHealth <= 0)
+            {
+                MainWindowModelView.GameOverEndState = MainWindowModelView.EndState.PlayerLose;
+            }
             shape.MouseEnter -= AttackHitPlayer;
         }
         private int _attacksCompleted;
@@ -217,7 +232,42 @@ namespace IMTA
                 Warning2.Visibility = Visibility.Hidden;
                 AttackWindow.Children.Clear();
                 MainWindowModelView.IsUsersTurn = true;
+                if (MouseOutTime != 0)
+                {
+                    long tempInt = DateTime.Now.Ticks - MouseOutTime;
+                    TimeSpan timeSpan = TimeSpan.FromTicks(tempInt);
+                    MainWindowModelView.UserHealth -= (int)timeSpan.TotalSeconds;
+                    CurrentHP.Content = MainWindowModelView.UserHealth;
+                    if (MainWindowModelView.UserHealth <= 0)
+                    {
+                        MainWindowModelView.GameOverEndState = MainWindowModelView.EndState.PlayerLose;
+                    }
+                }
+                MouseOutTime = 0;
             }
+        }
+        private long MouseOutTime;
+        private void AttackBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MouseOutTime = DateTime.Now.Ticks;
+        }
+
+        private void AttackBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (MainWindowModelView.IsUsersTurn) return;
+            if(MouseOutTime !=0)
+            {
+                long tempInt = DateTime.Now.Ticks - MouseOutTime;
+                TimeSpan timeSpan = TimeSpan.FromTicks(tempInt);
+                MainWindowModelView.UserHealth -= (int)timeSpan.TotalSeconds;
+                CurrentHP.Content = MainWindowModelView.UserHealth;
+                if (MainWindowModelView.UserHealth <= 0)
+                {
+                    MainWindowModelView.GameOverEndState = MainWindowModelView.EndState.PlayerLose;
+                }
+            }
+            MouseOutTime = 0;
+            
         }
     }
 }

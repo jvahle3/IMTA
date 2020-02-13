@@ -54,7 +54,6 @@ namespace IMTA.Models
                 Environment.Exit(0);
             }
         }
-
         private static bool _IsUsersTurn = true;
         public static AppSettingsReader AppReader = new AppSettingsReader();
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
