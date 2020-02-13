@@ -56,6 +56,7 @@ namespace IMTA.Models
         }
         private static bool _IsUsersTurn = true;
         public static AppSettingsReader AppReader = new AppSettingsReader();
+        public DataRecorder dataRecorder { get; } = new DataRecorder();
         public static int UserAttackPower { get; } = (int)AppReader.GetValue("UserAttackPower", typeof(int));
         public static int UserHealth { get; set; } = (int)AppReader.GetValue("UserHealth", typeof(int));
         public static bool IsDeathText { get; set; }

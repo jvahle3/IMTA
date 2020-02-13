@@ -83,6 +83,7 @@
     <Compile Include="Cmds\EntitySelected.cs" />
     <Compile Include="Cmds\SpareButtonClicked.cs" />
     <Compile Include="Cmds\TalkButtonClicked.cs" />
+    <Compile Include="Models\DataRecorder.cs" />
     <Compile Include="UserObjectContainer.cs" />
     <Compile Include="UserObject.cs" />
     <Page Include="MainWindow.xaml">
